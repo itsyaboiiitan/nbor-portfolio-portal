@@ -1,13 +1,10 @@
-// 1. Put your connection details here (Replace with your actual keys!)
 const SUPABASE_URL = "https://jrltmqnkqarcvwoqsvxx.supabase.co"; 
 const SUPABASE_ANON_KEY = "sb_publishable_n6cdCli1q5LEmdyJ4GleuQ_2a2APbA6";
 
-// 2. Grab the HTML elements
 const tokenInput = document.getElementById("tokenInput");
 const unlockBtn = document.getElementById("unlockBtn");
 const messageDisplay = document.getElementById("messageDisplay");
 
-// 3. Listen for the button click
 unlockBtn.addEventListener("click", async () => {
     const enteredToken = tokenInput.value.trim();
     messageDisplay.textContent = ""; 
@@ -23,7 +20,6 @@ unlockBtn.addEventListener("click", async () => {
         unlockBtn.textContent = "Verifying...";
 
         // --- STEP A: CHECK & VERIFY (Native HTTP GET) ---
-        // Kinakausap natin ang database mo gamit ang default URL network ng Supabase
         const fetchUrl = `${SUPABASE_URL}/rest/v1/tokens?token_code=eq.${enteredToken}`;
         
         const response = await fetch(fetchUrl, {
@@ -36,7 +32,6 @@ unlockBtn.addEventListener("click", async () => {
 
         const data = await response.json();
 
-        // Kung walang nahanap na match na row sa database
         if (!response.ok || data.length === 0) {
             messageDisplay.textContent = "Invalid Token Code. Please double-check.";
             unlockBtn.disabled = false;
@@ -44,9 +39,8 @@ unlockBtn.addEventListener("click", async () => {
             return;
         }
 
-        const record = data[0]; // Kunin ang unang nakitang row match
+        const record = data[0];
 
-        // Tingnan kung gamit na ang token
         if (record.is_used === true) {
             messageDisplay.textContent = "This token has already been claimed.";
             unlockBtn.disabled = false;
@@ -55,7 +49,6 @@ unlockBtn.addEventListener("click", async () => {
         }
 
         // --- STEP B: BURN (Native HTTP PATCH) ---
-        // Sunugin agad ang token para hindi na maipasa sa iba
         const updateUrl = `${SUPABASE_URL}/rest/v1/tokens?id=eq.${record.id}`;
         
         const updateResponse = await fetch(updateUrl, {
@@ -79,7 +72,6 @@ unlockBtn.addEventListener("click", async () => {
         messageDisplay.style.color = "green";
         messageDisplay.textContent = "Success! Redirecting to Canva...";
         
-        // I-benta sila papunta sa Canva link na nakasulat sa row nila
         window.location.href = record.canva_url;
 
     } catch (err) {

@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBOR Portfolio Verification</title>
+    <title>NBOR Portfolio Portal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div style="text-align: center; margin-top: 100px; font-family: Arial, sans-serif;">
-        <h2>⚜️ NBOR Portfolio Portal ⚜️</h2>
-        <p>Please enter your unique access token below to claim your template.</p>
+    <div class="portal-card">
+        <div class="scout-icon">⚜️</div>
+        <h2>NBOR Portfolio Portal</h2>
+        <p>Enter your authorized single-use token code below to claim your template dashboard.</p>
         
-        <input type="text" id="tokenInput" placeholder="Enter Token Code" style="padding: 10px; width: 250px; font-size: 16px;">
-        <button id="unlockBtn" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Unlock Template</button>
+        <div class="input-group">
+            <input type="text" id="tokenInput" placeholder="Token Code (e.g., NBOR-XXXX)">
+        </div>
         
-        <p id="messageDisplay" style="color: red; font-weight: bold; margin-top: 20px;"></p>
+        <button id="unlockBtn">Unlock Template</button>
+        
+        <p id="messageDisplay"></p>
     </div>
 
-    <!-- Ordinaryong javascript file na lang ang tinatawag natin dito -->
+    <footer>
+        Designed & Engineered by <strong>E.S. Ethan Oliver Peralta</strong> <br>
+        <span class="credentials">BS Computer Science | Mapúa University — DOST-SEI Scholar</span> <br>
+        <span class="copyright">Single-User DRM License System v1.0. Unauthorized duplication is strictly prohibited.</span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
     <script src="script.js"></script>
 </body>
 </html>
